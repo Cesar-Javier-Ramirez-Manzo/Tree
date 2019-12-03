@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trees</title>
+
+    <link rel="stylesheet" href="./mate2CSS.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+</head>
+
+<body background="./fondo.jpg">
+
+    <div class="container">
+        <div class="divisor">
+            <textarea name="" class="circulo" id="uno" cols="30" rows="10">1</textarea>
+
+        </div>
+
+
+        <div class="divisor">
+
+            <textarea name="" class="circulo" id="dos" cols="30" rows="10">2</textarea>
+
+            <textarea name="" class="circulo" id="tres" cols="30" rows="10">3</textarea>
+
+        </div>
+        <div class="divisor">
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <div>
+                <textarea name="" class="circulo" id="cuatro" cols="30" rows="10">4</textarea>
+
+            </div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+
+            <div>
+                <textarea name="" class="circulo" id="cinco" cols="30" rows="10">5</textarea>
+
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div>
+                <textarea class="circulo" name="" id="seis"  cols="30" rows="10">6</textarea>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div>
+                <textarea class="circulo" name="hidden"  id="siete" cols="30" rows="10">7</textarea>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="container2">
+        <button class="waves-effect waves-light btn-small" type=button
+            onclick="renew(),t1.preorder(n1)">preOrder</button>
+        <button class="waves-effect waves-light btn-small" type=button onclick="renew(),t1.inorder(n1)">inOrder</button>
+
+        <button class="waves-effect waves-light btn-small" type=button
+            onclick="renew(),t1.postorder(n1)">postOrder</button>
+
+    </div>
+
+    <script>
+        class Node {
+            constructor(d) {
+                this.data = d
+                this.sonR = null
+                this.sonL = null
+            }
+
+        }
+        class TreeUbb {
+            constructor(r) {
+                this.root = r
+
+            }
+
+            insert(root, n) {
+
+
+                if (root.sonL == null) {
+
+                    root.sonL = n
+                } else if (root.sonR == null) {
+
+
+                    root.sonR = n
+
+
+                } else if (root.sonL.sonR != null) {
+                    this.insert(root.sonR, n)
+                } else {
+                    this.insert(root.sonL, n)
+
+                }
+
+
+
+            }
+            remove(n) { //satnd by
+                var del = n
+
+                function reco(n) {
+
+                    if (n.sonL != null) {
+                        if (del == n.sonL.data) {
+                            n.sonL = null
+                            return console.log(n.data)
+                        } else {
+                            reco(n.sonL)
+                        }
+                    }
+                    if (n.sonR != null) {
+                        if (del == n.sonR.data) {
+                            n.sonR = null
+                            return console.log(n.data)
+                        } else {
+                            reco(n.sonR)
+                        }
+                    }
+
+                    console.log(n.data)
+                }
+                reco(this.root)
+
+            }
+            preorder(n) {
+                let a = []
+
+                function pre(n) {
+                    a.push(n.data + ' ')
+
+                    if (n.sonL == null) {
+
+                    } else {
+                        pre(n.sonL)
+                    }
+
+                    if (n.sonR == null) {} else {
+                        pre(n.sonR)
+                    }
+
+                    return
+                }
+                pre(n)
+                console.log(a.toString())
+                document.getElementById('output').value = a.toString()
+                return
+            }
+            inorder(n) {
+                let a = []
+
+                function ino(n) {
+                    if (n.sonL == null) {
+
+                    } else {
+                        ino(n.sonL)
+                    }
+
+                    a.push(n.data + ' ')
+                    if (n.sonR == null) {} else {
+                        ino(n.sonR)
+                    }
+
+                    return
+                }
+                ino(n)
+                console.log(a.toString())
+                document.getElementById('output').value = a.toString()
+                return
+            }
+            postorder(n) {
+                let a = []
+
+                function pos(n) {
+                    if (n.sonL == null) {
+
+                    } else {
+                        pos(n.sonL)
+                    }
+                    if (n.sonR == null) {} else {
+                        pos(n.sonR)
+                    }
+                    a.push(n.data + ' ')
+
+                    return
+                }
+                pos(n)
+                console.log(a.toString())
+                document.getElementById('output').value = a.toString()
+                return
+            }
+
+
+        }
+        var n1 = new Node(1) //creacion de nodos
+        var n2 = new Node(2)
+        var n3 = new Node(3)
+        var n4 = new Node(4)
+        var n5 = new Node(5)
+        var n6 = new Node(6)
+        var n7 = new Node(7)
+
+        var t1 = new TreeUbb(n1)
+
+        t1.insert(n1, n2)
+        t1.insert(n1, n3)
+        t1.insert(n1, n4)
+        t1.insert(n1, n5)
+        t1.insert(n1, n6)
+        t1.insert(n1, n7)
+
+
+
+        function renew() {
+            n1.data = document.getElementById("uno").value
+            n2.data = document.getElementById("dos").value
+            n3.data = document.getElementById("tres").value
+            n4.data = document.getElementById("cuatro").value
+            n5.data = document.getElementById("cinco").value
+            n6.data = document.getElementById("seis").value
+            n7.data = document.getElementById("siete").value
+
+
+
+        }
+    </script>
+
+    <div>
+        <textarea name="" readonly="true" class="center-align" id="output" cols="30" rows="10"></textarea>
+    </div>
+</body>
+
+</html>
